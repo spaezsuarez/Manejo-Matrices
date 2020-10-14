@@ -72,7 +72,7 @@ public class MatrizComponent extends JPanel {
 
         for (int i = 0; i < conversion.length; i++) {
             for (int j = 0; j < conversion[i].length; j++) {
-                result += String.valueOf(Math.round(conversion[i][j]));
+                result += String.valueOf((conversion[i][j]));
                 result += "     ";
             }
             result += "\n";
@@ -85,7 +85,7 @@ public class MatrizComponent extends JPanel {
         double[] respuestas = ManejoMatriz.Determinante(getConversion());
         String result = "Determinante: " + respuestas[0] + "\n"
                 + "Contador: " + respuestas[1] + "\n"
-                + "Frmula: " + respuestas[2] + "\n";
+                + "Formula: " + respuestas[2] + "\n";
 
         JOptionPane.showMessageDialog(null, result, "Determinante", JOptionPane.DEFAULT_OPTION);
     }
