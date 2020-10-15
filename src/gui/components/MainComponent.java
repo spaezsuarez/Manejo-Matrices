@@ -117,7 +117,8 @@ public class MainComponent extends JPanel implements ActionListener {
             remove(tablero);
             repaint();
         }else if(event.getSource() == btnDeterminante){
-            tablero.showDeterminant();
+             tablero.showDeterminant();
+            
             
             
         }

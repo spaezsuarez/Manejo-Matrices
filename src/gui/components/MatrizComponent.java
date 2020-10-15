@@ -24,6 +24,7 @@ public class MatrizComponent extends JPanel {
         for (int i = 0; i < entrada.length; i++) {
             for (int j = 0; j < entrada[i].length; j++) {
                 conversion[i][j] = Double.parseDouble(entrada[i][j].getText());
+
             }
         }
 
@@ -53,7 +54,7 @@ public class MatrizComponent extends JPanel {
         for (int i = 0; i < entrada.length; i++) {
             for (int j = 0; j < entrada[i].length; j++) {
                 entrada[i][j] = new JTextField();
-                entrada[i][j].setText(""+conversion[i][j]);
+                entrada[i][j].setText("" + conversion[i][j]);
             }
         }
     }
@@ -66,6 +67,8 @@ public class MatrizComponent extends JPanel {
             JOptionPane.showMessageDialog(null, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Fuera de rango", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch(NumberFormatException q){
+            JOptionPane.showMessageDialog(null, "Primero llene la matriz", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         String result = "";
@@ -77,6 +80,8 @@ public class MatrizComponent extends JPanel {
             }
             result += "\n";
         }
+        
+        result += "\nRango: " + ManejoMatriz.rangoMatriz(conversion);
 
         JOptionPane.showMessageDialog(null, result, "Matriz Escalonada", JOptionPane.DEFAULT_OPTION);
     }
@@ -85,7 +90,8 @@ public class MatrizComponent extends JPanel {
         double[] respuestas = ManejoMatriz.Determinante(getConversion());
         String result = "Determinante: " + respuestas[0] + "\n"
                 + "Contador: " + respuestas[1] + "\n"
-                + "Formula: " + respuestas[2] + "\n";
+                + "Formula: " + respuestas[2] + "\n"
+                + "<html><body><p>Complejidad: O(N<sup>3</sup>)<p></body></html>";
 
         JOptionPane.showMessageDialog(null, result, "Determinante", JOptionPane.DEFAULT_OPTION);
     }
