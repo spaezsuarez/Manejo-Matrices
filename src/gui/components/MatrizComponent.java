@@ -65,9 +65,9 @@ public class MatrizComponent extends JPanel {
             ManejoMatriz.escalonar(getConversion());
         } catch (NullPointerException a) {
             JOptionPane.showMessageDialog(null, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Fuera de rango", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch(NumberFormatException q){
+        } catch (ArrayIndexOutOfBoundsException e) {} 
+        
+          catch(NumberFormatException q){
             JOptionPane.showMessageDialog(null, "Primero llene la matriz", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -90,8 +90,8 @@ public class MatrizComponent extends JPanel {
         double[] respuestas = ManejoMatriz.Determinante(getConversion());
         String result = "Determinante: " + respuestas[0] + "\n"
                 + "Contador: " + respuestas[1] + "\n"
-                + "Formula: " + respuestas[2] + "\n"
-                + "<html><body><p>Complejidad: O(N<sup>3</sup>)<p></body></html>";
+                + "Formula: " + respuestas[2] + "\n";
+                //+ "<html><body><p>Complejidad: O(N<sup>3</sup>)<p></body></html>";
 
         JOptionPane.showMessageDialog(null, result, "Determinante", JOptionPane.DEFAULT_OPTION);
     }

@@ -19,7 +19,7 @@ public class MainComponent extends JPanel implements ActionListener {
     private MatrizComponent tablero;
 
     public MainComponent() {
-        WIDTH = 600;
+        WIDTH = 2000;
         HEIGHT = 650;
 
         initComponent();
@@ -117,7 +117,13 @@ public class MainComponent extends JPanel implements ActionListener {
             remove(tablero);
             repaint();
         }else if(event.getSource() == btnDeterminante){
-             tablero.showDeterminant();
+            
+             if(txtFilas.getText().equals(txtColumnas.getText())){
+                  tablero.showDeterminant();
+             }else{
+                  JOptionPane.showMessageDialog(null, "La matriz debe ser cuadrada", "Error", JOptionPane.ERROR_MESSAGE);
+             }
+            
             
             
             

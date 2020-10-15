@@ -11,29 +11,44 @@ public class ManejoMatriz {
         int contador = 2;
 
         for (int i = 0; i < filas; i++) {
+            
+            contador += 9;
+            
+            if (matriz[i][i] == 0) {
+                int iterador = i + 1;
+                contador += 2;
+                do {
+                    double[] temp = matriz[i];
+                    matriz[i] = matriz[iterador];
+                    matriz[iterador] = temp;
+                    iterador++;
+                    contador += 11;
 
+                } while (matriz[i][i] == 0);
+                contador += 3;
+            }
+
+            contador += 3;
             pivote = matriz[i][i];
-            contador += 5;
+           
 
             for (int j = i; j < filas; j++) {
                 matriz[i][j] /= pivote;
                 contador += 6;
             }
-            contador += 2;
 
             for (int k = 0; k < filas; k++) {
                 contador += 3;
                 if (i < k) {
-                    contador += 5;
+                    contador += 3;
                     aux = matriz[k][i];
-                    for (int z = 0; z < filas; z++) {
+                    for (int z = 0; z < columnas; z++) {
                         matriz[k][z] -= aux * matriz[i][z];
                         contador += 9;
                     }
                 }
             }
 
-            contador += 2;
         }
 
     }
@@ -61,15 +76,14 @@ public class ManejoMatriz {
 
         double[] resultados = new double[3];
         int N = m.length, formula;
-        int contador = 3;
         double determinante = 1;
+        
+        int contador = 3;
 
         for (int i = 0; i < N - 1; i++) {
             contador += 9;
 
             if (m[i][i] == 0) {
-                //intercambiar fila i con una fila
-                //posterior
                 int iterador = i + 1;
                 contador += 2;
                 do {
@@ -89,9 +103,9 @@ public class ManejoMatriz {
                 for (int j = i + 1; j < N; j++) {
                     contador += 16;
                     m[k][j] = m[k][j] - (m[k][i] * m[i][j]) / m[i][i];
-                }// j
+                }
 
-            } // k
+            }
 
         }
 
