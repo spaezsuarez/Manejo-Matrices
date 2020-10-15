@@ -79,9 +79,9 @@ public class ManejoMatriz {
         double determinante = 1;
         
         int contador = 3;
-
+        
         for (int i = 0; i < N - 1; i++) {
-            contador += 9;
+           contador += 6;
 
             if (m[i][i] == 0) {
                 int iterador = i + 1;
@@ -91,11 +91,16 @@ public class ManejoMatriz {
                     m[i] = m[iterador];
                     m[iterador] = temp;
                     iterador++;
-                    contador += 10;
+                    contador += 11;
+                    
 
                 } while (m[i][i] == 0);
-                contador += 3;
+                contador += 3; // While falso
+                
             }
+            
+            contador += 3;
+            
             contador += 3;
 
             for (int k = i + 1; k < N; k++) {
@@ -113,7 +118,7 @@ public class ManejoMatriz {
             determinante *= m[i][i];
         }
 
-        formula = 16 * ((N * N * N) - (3 * (N * N)) + (3 * N) + (((int) Math.pow(N - 2, 2) * (((int) Math.pow(N - 2, 2)))) / 4) - 1) + 5 * ((N * N) - (2 * N) - ((N - 2) * (N - 2) / 2) + 1) + 6 * ((N - 1) + 1) + 3;;
+        formula = (16 * ((N * N * N) - (3 * (N * N)) + (3 * N) + (((int) Math.pow(N - 2, 2) * (((int) Math.pow(N - 2, 2)))) / 4) - 1)) + (5 * ((N * N) - (2 * N) - ((N - 2) * (N - 2) / 2) + 1)) + (6 * ((N - 1) + 1)) + 3;
 
         resultados[0] = determinante;
         resultados[1] = contador;
