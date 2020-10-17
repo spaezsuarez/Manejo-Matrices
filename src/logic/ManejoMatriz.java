@@ -17,7 +17,9 @@ public class ManejoMatriz {
                 pivote = matriz[i][j];
 
             } else if (hayColumnasCeros(matriz, i, j)) {
-                j++;
+                while(matriz[i][j] == 0){
+                    j++;
+                }
                 pivote = matriz[i][j];
             } else {
                 for (int k = i + 1; k < filas; k++) {
@@ -89,17 +91,13 @@ public class ManejoMatriz {
 
     public double rangoMatriz(double[][] matriz) {
         double rango = 0;
-        int contadorFila = 0;
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
-                if (matriz[i][j] == 0) {
-                    contadorFila++;
+                if (matriz[i][j] != 0) {
+                    rango++;
+                    break;
                 }
             }
-            if (contadorFila != matriz.length) {
-                rango++;
-            }
-            contadorFila = 0;
 
         }
 
