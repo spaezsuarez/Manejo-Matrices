@@ -32,6 +32,7 @@ public class ManejoMatriz {
                 }
             }
 
+            pivote = matriz[i][j];
             //Dividir la fila sobre el pivote
             for (int x = i; x < columnas; x++) {
                 matriz[i][x] /= pivote;
@@ -111,7 +112,7 @@ public class ManejoMatriz {
                 contadorColumnasCeros++;
             }
         }
-        //System.out.println(contadorColumnasCeros == (ref.length - row +1));
+        
         return contadorColumnasCeros == ((ref.length - 1) - row);
     }
 
@@ -138,7 +139,7 @@ public class ManejoMatriz {
 
             int iterador = i + 1;
             while (m[i][i] == 0 && iterador < m.length) {
-                if (hayColumnasCeros(m, i)) {
+                if (hayColumnasCeros(m,i,i)) {
                     determinante = NaN;
                     break;
                 }
