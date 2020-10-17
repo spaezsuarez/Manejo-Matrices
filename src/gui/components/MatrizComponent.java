@@ -88,7 +88,6 @@ public class MatrizComponent extends JPanel {
 
     public void showDeterminant() {
         double[] respuestas = ManejoMatriz.Determinante(getConversion());
-        ManejoMatriz.test();
         String result = "Determinante: " + respuestas[0] + "\n"
                 + "Contador: " + respuestas[1] + "\n"
                 + "Formula: " + respuestas[2] + "\n"

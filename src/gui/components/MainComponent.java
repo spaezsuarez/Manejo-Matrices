@@ -124,9 +124,6 @@ public class MainComponent extends JPanel implements ActionListener {
                   JOptionPane.showMessageDialog(null, "La matriz debe ser cuadrada", "Error", JOptionPane.ERROR_MESSAGE);
              }
             
-            
-            
-            
         }
     }
 

@@ -1,5 +1,7 @@
 package logic;
 
+import static java.lang.Double.NaN;
+
 public class ManejoMatriz {
 
     public static void escalonar(double[][] matriz) {
@@ -7,45 +9,43 @@ public class ManejoMatriz {
         int filas = matriz.length;
         int columnas = matriz[0].length;
         double pivote = 1, aux = 0;
-
-        int contador = 2;
+        boolean seMovio = false;
 
         for (int i = 0; i < filas; i++) {
 
             if (i < filas) {
-
-                contador += 9;
-
-                if (matriz[i][i] == 0) {
-                    double[] temp = matriz[i];
-                    matriz[i] = matriz[i + 1];
-                    matriz[i + 1] = temp;
-                }
-
-                contador += 6;
                 pivote = matriz[i][i];
-                System.out.println("Pivote: " + pivote);
+                
+                int iterador = i + 1;
+                while (matriz[i][i] == 0 && iterador < matriz.length) {
+                    if (hayColumnasCeros(matriz, i)) {
+                        pivote = matriz[i][i+1];
+                        break;
+                    }
+                    double[] temp = matriz[i];
+                    matriz[i] = matriz[iterador];
+                    matriz[iterador] = temp;
+                    iterador++;
+
+                }
+                
+                System.out.println(pivote);
 
                 for (int j = i; j < columnas; j++) {
                     matriz[i][j] /= pivote;
-                    contador += 6;
+
                 }
 
                 for (int k = i + 1; k < filas; k++) {
-                    contador += 3;
-                    contador += 3;
-                    System.out.println("i: " + i);
-                    System.out.println("k: " + k);
+
                     aux = matriz[k][i];
-                    System.out.println(aux);
                     for (int z = 0; z < columnas; z++) {
                         double temp = matriz[k][z];
                         matriz[k][z] -= aux * matriz[i][z];
-                        System.out.println(temp + " -= " + aux + " * " + matriz[i][z]);
-                        contador += 9;
 
                     }
-                    EscribirMatrizConsola(matriz);
+                    System.out.println("------------------------------------");
+                    imprimir(matriz);
 
                 }
             }
@@ -73,6 +73,26 @@ public class ManejoMatriz {
         return rango;
     }
 
+    public static boolean hayColumnasCeros(double[][] ref, int pos) {
+        int contadorColumnasCeros = 0;
+        for (int i = 0; i < ref.length; i++) {
+            if (ref[i][pos] == 0) {
+                contadorColumnasCeros++;
+            }
+        }
+        return contadorColumnasCeros >= (ref.length - 1);
+    }
+
+    public static void imprimir(double[][] m) {
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                System.out.print(m[i][j] + "   ");
+            }
+            System.out.println("\n");
+
+        }
+    }
+
     public static double[] Determinante(double[][] m) {
 
         double[] resultados = new double[3];
@@ -82,19 +102,23 @@ public class ManejoMatriz {
         int contador = 3;
 
         for (int i = 0; i < N - 1; i++) {
-            contador += 9;
+            contador += 6;
 
-            if (m[i][i] == 0) {
-                //contador += 13;
+            int iterador = i + 1;
+            while (m[i][i] == 0 && iterador < m.length) {
+                if (hayColumnasCeros(m, i)) {
+                    determinante = NaN;
+                    break;
+                }
                 double[] temp = m[i];
-                m[i] = m[i + 1];
-                m[i + 1] = temp;
+                m[i] = m[iterador];
+                m[iterador] = temp;
                 contadorCambios++;
+                iterador++;
 
             }
-            //contador += 3;
+            contador += 3;
 
-            //contador += 3;
             for (int k = i + 1; k < N; k++) {
                 contador += 5;
                 for (int j = i + 1; j < N; j++) {
@@ -102,17 +126,19 @@ public class ManejoMatriz {
                     m[k][j] = m[k][j] - (m[k][i] * m[i][j]) / m[i][i];
                 }
             }
+
         }
 
-        for (int i = 0; i < N; i++) {
-            determinante *= m[i][i];
+        for (int w = 0; w < N; w++) {
+            determinante *= m[w][w];
         }
 
-        for (int i = 0; i < contadorCambios; i++) {
+        for (int z = 0; z < contadorCambios; z++) {
             determinante *= -1;
         }
 
-        formula = (16 * ((N * N * N) - (3 * (N * N)) + (3 * N) + (((int) Math.pow((N - 2), 2) * (((int) Math.pow((N - 2), 2)))) / 4) - 1)) + (5 * ((N * N) - (2 * N) - ((N - 2) * (N - 2) / 2) + 1)) + (6 * ((N - 1) + 1)) + 3;
+        //formula = (16 * ((N * N * N) - (3 * (N * N)) + (3 * N) + (((int) Math.pow((N - 2), 2) * (((int) Math.pow((N - 2), 2)))) / 4) - 1)) + (5 * ((N * N) - (2 * N) - ((N - 2) * (N - 2) / 2) + 1)) + (6 * ((N - 1) + 1)) + 3;
+        formula = (21 * (int) Math.pow(N, 2)) - (36 * N) + (((32 * (int) Math.pow(N, 3)) - (159 * (int) Math.pow(N, 2)) + (253 * N) - 126) / 6) + 24;
 
         resultados[0] = determinante;
         resultados[1] = contador;
@@ -121,53 +147,4 @@ public class ManejoMatriz {
         return resultados;
     }
 
-    public static void EscribirMatrizConsola(double[][] Matriz) {
-
-        for (int i = 0; i < Matriz.length; i++) {
-            for (int j = 0; j < Matriz[0].length; j++) {
-                System.out.print(Matriz[i][j] + " ");
-            }
-            System.out.println("\n");
-        }
-        System.out.println("---------------------");
-    }
-
-    public static void test() {
-        int i, k, j;
-        double[][] m = {
-            {4, 5, 2, 3}, {3, 5, 3, 7}, {-3, 5, 1, 3}, {5, -5, -9, 3}
-        };
-
-        int n = 4;
-        int c = 0;
-        c = c + 1;
-        for (i = 0; i < n - 1; i++) {
-            c = c + 5;
-
-            if (m[i][i] == 0) {
-                //contador += 13;
-                double[] temp = m[i];
-                m[i] = m[i + 1];
-                m[i + 1] = temp;
-
-            }
-
-            for (k = i + 1; k < n; k++) {
-                c = c + 4;
-                for (j = i + 1; j < n; j++) {
-                    c = c + 16;
-                    m[k][j] = m[k][j] - (m[k][i] * m[i][j]) / m[i][i];
-                }// j
-                c = c + 1;
-            } // k
-            c = c + 1;
-        }
-        c = c + 2;
-
-        double d = 1;
-        System.out.println(c);
-        for (i = 0; i < n; i++) {
-            d = d * m[i][i];
-        }
-    }
 }
