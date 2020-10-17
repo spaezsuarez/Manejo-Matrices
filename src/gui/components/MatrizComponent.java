@@ -12,6 +12,11 @@ public class MatrizComponent extends JPanel {
 
     private JTextField[][] entrada;
     private double[][] conversion;
+    private ManejoMatriz objeto;
+    
+    public MatrizComponent(){
+        this.objeto = new ManejoMatriz();
+    }
 
     public void setMatrices(int filas, int columnas) {
 
@@ -62,7 +67,7 @@ public class MatrizComponent extends JPanel {
     public void showOutPutReductionElements() {
 
         try {
-            ManejoMatriz.escalonar(getConversion());
+            objeto.escalonar(getConversion());
         } catch (NullPointerException a) {
             JOptionPane.showMessageDialog(null, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException e) {} 
@@ -81,13 +86,13 @@ public class MatrizComponent extends JPanel {
             result += "\n";
         }
         
-        result += "\nRango: " + ManejoMatriz.rangoMatriz(conversion);
+        result += "\nRango: " + objeto.rangoMatriz(conversion);
 
         JOptionPane.showMessageDialog(null, result, "Matriz Escalonada", JOptionPane.DEFAULT_OPTION);
     }
 
     public void showDeterminant() {
-        double[] respuestas = ManejoMatriz.Determinante(getConversion());
+        double[] respuestas = objeto.Determinante(getConversion());
         String result = "Determinante: " + respuestas[0] + "\n"
                 + "Contador: " + respuestas[1] + "\n"
                 + "Formula: " + respuestas[2] + "\n"

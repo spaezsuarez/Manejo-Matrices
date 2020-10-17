@@ -4,14 +4,48 @@ import static java.lang.Double.NaN;
 
 public class ManejoMatriz {
 
-    public static void escalonar(double[][] matriz) {
+    public void escalonar(double[][] matriz) {
 
         int filas = matriz.length;
         int columnas = matriz[0].length;
         double pivote = 1, aux = 0;
-        boolean seMovio = false;
 
-        for (int i = 0; i < filas; i++) {
+        for (int i = 0, j = 0; i < filas; i++, j++) {
+
+            //Seleccionar el pivote
+            if (matriz[i][j] != 0) {
+                pivote = matriz[i][j];
+
+            } else if (hayColumnasCeros(matriz, i, j)) {
+                j++;
+                pivote = matriz[i][j];
+            } else {
+                for (int k = i + 1; k < filas; k++) {
+                    if (matriz[k][j] != 0) {
+                        double[] temp = matriz[i];
+                        matriz[i] = matriz[k];
+                        matriz[k] = temp;
+                        break;
+                    }
+                }
+            }
+
+            //Dividir la fila sobre el pivote
+            for (int x = i; x < columnas; x++) {
+                matriz[i][x] /= pivote;
+            }
+
+            //Convertir las filas de abajo cero
+            for (int k = i + 1; k < filas; k++) {
+                aux = matriz[k][j];
+                for (int z = 0; z < columnas; z++) {
+                    matriz[k][z] -= aux * matriz[i][z];
+                }
+
+            }
+        }
+
+        /*for (int i = 0; i < filas; i++) {
 
             if (i < filas) {
                 pivote = matriz[i][i];
@@ -50,11 +84,10 @@ public class ManejoMatriz {
                 }
             }
 
-        }
-
+        }*/
     }
 
-    public static double rangoMatriz(double[][] matriz) {
+    public double rangoMatriz(double[][] matriz) {
         double rango = 0;
         int contadorFila = 0;
         for (int i = 0; i < matriz.length; i++) {
@@ -73,27 +106,28 @@ public class ManejoMatriz {
         return rango;
     }
 
-    public static boolean hayColumnasCeros(double[][] ref, int pos) {
+    public boolean hayColumnasCeros(double[][] ref, int row, int col) {
+        int contadorColumnasCeros = 0;
+        for (int i = row + 1; i < ref.length; i++) {
+            if (ref[i][col] == 0) {
+                contadorColumnasCeros++;
+            }
+        }
+        //System.out.println(contadorColumnasCeros == (ref.length - row +1));
+        return contadorColumnasCeros == ((ref.length - 1) - row);
+    }
+
+    public boolean hayColumnasCeros(double[][] ref, int col) {
         int contadorColumnasCeros = 0;
         for (int i = 0; i < ref.length; i++) {
-            if (ref[i][pos] == 0) {
+            if (ref[i][col] == 0) {
                 contadorColumnasCeros++;
             }
         }
         return contadorColumnasCeros >= (ref.length - 1);
     }
 
-    public static void imprimir(double[][] m) {
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m[i].length; j++) {
-                System.out.print(m[i][j] + "   ");
-            }
-            System.out.println("\n");
-
-        }
-    }
-
-    public static double[] Determinante(double[][] m) {
+    public double[] Determinante(double[][] m) {
 
         double[] resultados = new double[3];
         int N = m.length, formula, contadorCambios = 0;
