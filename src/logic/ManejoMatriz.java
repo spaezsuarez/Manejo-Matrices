@@ -3,6 +3,12 @@ package logic;
 import static java.lang.Double.NaN;
 
 public class ManejoMatriz {
+    
+    private boolean isNan = false;
+
+    public boolean getIsNan() {
+        return isNan;
+    }    
 
     public void escalonar(double[][] matriz) {
 
@@ -116,21 +122,12 @@ public class ManejoMatriz {
         return contadorColumnasCeros == ((ref.length - 1) - row);
     }
 
-    public boolean hayColumnasCeros(double[][] ref, int col) {
-        int contadorColumnasCeros = 0;
-        for (int i = 0; i < ref.length; i++) {
-            if (ref[i][col] == 0) {
-                contadorColumnasCeros++;
-            }
-        }
-        return contadorColumnasCeros >= (ref.length - 1);
-    }
-
+    
     public double[] Determinante(double[][] m) {
 
         double[] resultados = new double[3];
-        int N = m.length, formula, contadorCambios = 0;
-        double determinante = 1;
+        int N = m.length, contadorCambios = 0;
+        double determinante = 1,formula;
 
         int contador = 3;
 
@@ -140,7 +137,7 @@ public class ManejoMatriz {
             int iterador = i + 1;
             while (m[i][i] == 0 && iterador < m.length) {
                 if (hayColumnasCeros(m,i,i)) {
-                    determinante = NaN;
+                    isNan = true;
                     break;
                 }
                 double[] temp = m[i];
@@ -150,7 +147,7 @@ public class ManejoMatriz {
                 iterador++;
 
             }
-            contador += 3;
+            //contador += 3;
 
             for (int k = i + 1; k < N; k++) {
                 contador += 5;
@@ -171,7 +168,8 @@ public class ManejoMatriz {
         }
 
         //formula = (16 * ((N * N * N) - (3 * (N * N)) + (3 * N) + (((int) Math.pow((N - 2), 2) * (((int) Math.pow((N - 2), 2)))) / 4) - 1)) + (5 * ((N * N) - (2 * N) - ((N - 2) * (N - 2) / 2) + 1)) + (6 * ((N - 1) + 1)) + 3;
-        formula = (21 * (int) Math.pow(N, 2)) - (36 * N) + (((32 * (int) Math.pow(N, 3)) - (159 * (int) Math.pow(N, 2)) + (253 * N) - 126) / 6) + 24;
+        //formula = (21 * (int) Math.pow(N, 2)) - (31 * N) + (((32 * (int) Math.pow(N, 3)) - (159 * (int) Math.pow(N, 2)) + (223 * N) - 96) / 6) + 16;
+        formula = (21 * Math.pow(N, 2)) - (31 * N) + (((32 * Math.pow(N, 3)) - (159 * Math.pow(N, 2)) + (223 * N) - 96) / 6) + 10;
 
         resultados[0] = determinante;
         resultados[1] = contador;

@@ -86,17 +86,31 @@ public class MatrizComponent extends JPanel {
             result += "\n";
         }
         
-        result += "\nRango: " + objeto.rangoMatriz(conversion);
+        result += "\nRango: " + objeto.rangoMatriz(conversion) + "\n";
+        result += "<html><body><p>Orden:N<sup>2</sup></p></body></html>";
+        //result += "";
 
         JOptionPane.showMessageDialog(null, result, "Matriz Escalonada", JOptionPane.DEFAULT_OPTION);
     }
 
     public void showDeterminant() {
         double[] respuestas = objeto.Determinante(getConversion());
-        String result = "Determinante: " + respuestas[0] + "\n"
+        String result = "";
+        
+        if(objeto.getIsNan()){
+            result = "Determinante: " + "No existe" + "\n"
                 + "Contador: " + respuestas[1] + "\n"
                 + "Formula: " + respuestas[2] + "\n"
-                + "<html><body><p>Complejidad: O(N<sup>3</sup>)<p></body></html>";
+                + "<html><body><p>Complejidad: O(N<sup>3</sup>)<p></body></html> \n"
+                + "<html><body><p>Expresion: 21N<sup>2</sup> - 31N + ((32N<sup>3</sup>-159N<sup>2</sup> + 223N - 96)/ 6) + 10 </p></body></html>";
+        }else{
+            result = "Determinante: " + respuestas[0] + "\n"
+                + "Contador: " + respuestas[1] + "\n"
+                + "Formula: " + respuestas[2] + "\n"
+                + "<html><body><p>Complejidad: O(N<sup>3</sup>)<p></body></html> \n"
+                + "<html><body><p>Expresion: 21N<sup>2</sup> - 31N + ((32N<sup>3</sup>-159N<sup>2</sup> + 223N - 96)/ 6) + 10 </p></body></html>";
+        }
+        
 
         JOptionPane.showMessageDialog(null, result, "Determinante", JOptionPane.DEFAULT_OPTION);
     }
