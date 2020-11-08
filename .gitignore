@@ -1,2 +1,6 @@
-/build
-
+build
+Design
+dist
+nbproject
+*.xml
+*.mf
