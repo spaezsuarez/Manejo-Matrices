@@ -5,3 +5,6 @@ Programa para analizar la complejidad (Notacion big O),de los algoritmos de redu
 ## Autor
 
 Sergio David Paez Suarez
+## Interfaz
+
+![Menu](doc/Menu.png)
